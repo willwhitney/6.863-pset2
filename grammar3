@@ -1,0 +1,124 @@
+# This grammar uses a convention that
+#		- terminals are lowercase					(president)
+#		- preterminals are capitalized		 (Noun)
+#		- other nonterminals are all-caps	(NP)
+# 
+# This convention just makes grammars more readable to humans.	Thus:
+#
+#		- When *you* are writing grammars in questions 3 and 6, you should 
+#			follow this convention unless you have a good reason not to.	
+#
+#		- But your *program* should still work with grammars that don't 
+#			follow this convention.	It should not pay any attention to
+#			upper/lower case.	From your program's point of view, 
+#			if there is at least one rule for rewriting a symbol, then
+#			that symbol is a nonterminal and should be rewritten.
+#######################
+
+# Rules for creating full sentences.
+1		START	ROOT
+1		ROOT	S .
+.4	ROOT	S !
+.2	ROOT	is it true that S ?		 # mixing terminals and nonterminals is ok.
+.3 	ROOT 	Adj-demons S VPD .
+
+# The basic grammar rules.	Here's what the abbreviations stand for:
+#		S	= sentence
+#		NP = noun phrase
+#		VP = V-trans phrase
+#		PP = prepositional phrase
+#		Det = determiner (sometimes called "article")
+#		Prep = preposition
+#		Adj = adjective
+
+1		S				NP VP
+
+1		VP			V-trans NP
+1		VP 			V-intrans
+1		VP 			V-intrans PP
+.6 	VP 			Adv VP
+.8 	VP 			V-trans Conj V-trans NP
+.8 	VP 			V-intrans Conj V-intrans
+.8	VP			V-indirect PP
+.5	VP			VP PP
+.6 	VP 			V-demons Adj-demons S
+
+1 	VPD 		V-demons-reverse NP
+
+5		NP			Det Noun
+1 	NP 			N-prop
+.2	NP			NP PP
+.3 	NP			NP Conj NP
+
+1 	PP			Prep NP
+1 	PP 			PP-LOC
+1		PP			Prep-indirect NP
+.2	PP			PP PP
+1 	PP-LOC 	Prep-loc Det N-loc
+1 	PP-LOC 	Prep-loc Det N-loc PP
+
+1		Noun		Adj Noun
+.8	N-loc 	Adj N-loc
+.5	Adj			Adv-extent Adj
+
+
+# Vocabulary.	Your program can see that "ate" is a terminal
+# symbol because there exists no rule for rewriting it.
+# Any symbol that can rewrite as a terminal (or a string of 
+# terminals, like "chief of staff") is called a "preterminal."	Notice 
+# that a preterminal is a special kind of nonterminal.
+
+1		V-trans		ate
+1		V-trans		wanted
+1		V-trans		kissed
+1		V-trans		understood
+.5	V-trans		pickled
+1 	V-trans 	found
+1 	V-trans 	heard
+1		V-trans		saw
+
+1 	V-intrans partied
+1 	V-intrans slept
+1 	V-intrans ate
+
+1 	V-indirect	worked
+
+1 	V-demons 	thought
+
+1 	V-demons-reverse perplexed
+
+2		Det	the
+1		Det	a
+.5	Det	every
+
+1		Noun	president
+1		Noun	sandwich
+1		Noun	pickle
+1		Noun	chief of staff
+1 	Noun	proposal
+
+1		N-loc	floor
+1 	N-loc	desk
+
+1 	N-prop	Sally
+
+1		Adj	fine
+1		Adj	delicious
+1		Adj	perplexed
+.5	Adj	pickled
+
+1 	Adj-demons that
+
+1 	Adv quickly
+
+1 	Adv-extent very
+
+2		Prep			with
+
+1		Prep-loc	on
+1		Prep-loc	under
+1		Prep-loc	in
+
+1		Prep-indirect	on
+
+1 	Conj	and
