@@ -20,3 +20,54 @@ is it true that every pickle understood the pickled sandwich ?
 is it true that every pickle pickled every president ?
 every floor ate every pickle on every pickle with a chief of staff .
 a pickle pickled the sandwich !
+
+(START (ROOT (S (NP (Det a)
+										(Noun chief
+													of
+													staff))
+								(VP (V-intrans ate)
+										(Conj and)
+										(V-intrans partied)))
+						 .))
+(START (ROOT (S (NP (Det the)
+										(Noun president))
+								(VP (V-intrans ate)
+										(Conj and)
+										(V-intrans partied)))
+						 .))
+(START (ROOT is
+						 it
+						 true
+						 that
+						 (S (NP (Det the)
+										(Noun president))
+								(VP (VP (V-intrans slept))
+										(PP (Prep-indirect on)
+												(NP (Det the)
+														(Noun (Adj perplexed)
+																	(Noun pickle))))))
+						 ?))
+(START (ROOT is
+						 it
+						 true
+						 that
+						 (S (NP (Det the)
+										(Noun pickle))
+								(VP (V-intrans slept)
+										(PP (PP-LOC (Prep-loc on)
+																(Det the)
+																(N-loc desk)
+																(PP (Prep with)
+																		(NP (Det a)
+																				(Noun chief
+																							of
+																							staff)))))))
+						 ?))
+(START (ROOT (S (NP (Det the)
+										(Noun proposal))
+								(VP (V-intrans partied)
+										(PP (PP-LOC (Prep-loc on)
+																(Det the)
+																(N-loc (Adj perplexed)
+																			 (N-loc desk))))))
+						 .))

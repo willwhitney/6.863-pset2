@@ -18,7 +18,7 @@ def parseGrammar(grammarFile):
   rule = None
   while rule != '':
     rule = grammarFile.readline()
-    rule = rule.lower()
+    # rule = rule.lower()
     parts = rule.split()  
     
     if len(parts) < 3:
@@ -30,10 +30,10 @@ def parseGrammar(grammarFile):
         parts = parts[:i]
         break
 
-    if parts[1] in grammar:
-      grammar[parts[1]].append((float(parts[0]), parts[2:]))
+    if parts[1].lower() in grammar:
+      grammar[parts[1].lower()].append((float(parts[0]), parts[2:]))
     else:
-      grammar[parts[1]] = [(float(parts[0]), parts[2:])]
+      grammar[parts[1].lower()] = [(float(parts[0]), parts[2:])]
     
   # for key in grammar:
   #   grammar[key].sort()
@@ -41,12 +41,14 @@ def parseGrammar(grammarFile):
 
 def getWeightedBranching(grammar, token):
   # print [choice[0] for choice in grammar[token]]
-  totalWeight = sum([choice[0] for choice in grammar[token]])
+  totalWeight = sum([choice[0] for choice in grammar[token.lower()]])
   index = random.random() * totalWeight
+  # print "token: " + token
+  # print grammar[token.lower()]
   # print "total weight: ", totalWeight
   # print "index: ", index
   currentLocation = 0
-  for option in grammar[token]:
+  for option in grammar[token.lower()]:
     # print "option: ", option
     if currentLocation <= index < currentLocation + option[0]:
       # print "currentLocation: ", currentLocation
@@ -57,7 +59,7 @@ def getWeightedBranching(grammar, token):
 prettyString = ""
 def expand(grammar, token, tree=False):
   global prettyString
-  if token in grammar.keys():
+  if token.lower() in grammar.keys():
     tokens = getWeightedBranching(grammar, token)[1]
     prettyString += '(' + str(token)
     results = []
@@ -73,13 +75,15 @@ def expand(grammar, token, tree=False):
 def buildSentence(grammar, number=1, tree=False):
   result = []
   global prettyString
-  prettyString = ""
   # print expand(grammar, 'start')
   for i in xrange(number):
-    wordlist = [tup for tup in expand(grammar, 'start', tree)]
-    result.append(' '.join(wordlist))
-    print prettyString
-  return '\n' #.join(result)
+    prettyString = ""
+    wordlist = [tup for tup in expand(grammar, 'START', tree)]
+    if tree:
+      result.append(prettyString)
+    else:
+      result.append(' '.join(wordlist))
+  return '\n'.join(result)
     
   
 parser = argparse.ArgumentParser(description="Generate random sentences.")
@@ -91,7 +95,7 @@ args = parser.parse_args()
 grammarFile = open(args.grammar, 'r')
 grammar = parseGrammar(grammarFile)
 
-sys.stdout.write(buildSentence(grammar, args.number))
+sys.stdout.write(buildSentence(grammar, args.number, args.tree))
 sys.stdout.write('\n')
 
 
