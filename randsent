@@ -94,7 +94,7 @@ grammar = parseGrammar(grammarFile)
 if len(args) == 1:
   args.append(1)
 
-sys.stdout.write(buildSentence(grammar, args[1], options.tree))
+sys.stdout.write(buildSentence(grammar, int(args[1]), options.tree))
 sys.stdout.write('\n')
 
 
