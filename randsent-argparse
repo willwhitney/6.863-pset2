@@ -2,7 +2,7 @@
 
 import sys
 import random
-import optparse
+import argparse
 
 def parseGrammar(grammarFile):
   '''
@@ -86,15 +86,16 @@ def buildSentence(grammar, number=1, tree=False):
   return '\n'.join(result)
     
   
-parser = optparse.OptionParser(description="Generate random sentences.")
-parser.add_option("-t", action="store_true", default=False, dest="tree")
-(options, args) = parser.parse_args()
-grammarFile = open(args[0], 'r')
-grammar = parseGrammar(grammarFile)
-if len(args) == 1:
-  args.append(1)
+parser = argparse.ArgumentParser(description="Generate random sentences.")
+parser.add_argument("grammar", help="the grammar to use")
+parser.add_argument("number", help="how many sentences to generate", nargs='?', default=1, type=int)
+parser.add_argument("-t", "--tree", help="show the tree structure", action="store_true")
+args = parser.parse_args()
 
-sys.stdout.write(buildSentence(grammar, args[1], options.tree))
+grammarFile = open(args.grammar, 'r')
+grammar = parseGrammar(grammarFile)
+
+sys.stdout.write(buildSentence(grammar, args.number, args.tree))
 sys.stdout.write('\n')
 
 
