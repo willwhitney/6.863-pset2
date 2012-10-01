@@ -1,0 +1,9 @@
+A few notes about this submission:
+
+randsent-argparse is the first version of randsent that I wrote, which uses argparse, a python 2.7 library. I rewrote it in randsent to use optparse, which works on older versions of python.
+
+Sample outputs from all the grammars in included in output.txt.
+
+The writeup, as you might guess, is in assignment2_writeup.pdf.
+
+All the grammars are included under the appropriate names.

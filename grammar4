@@ -21,6 +21,14 @@
 .4	ROOT	S !
 .2	ROOT	is it true that S ?		 # mixing terminals and nonterminals is ok.
 .3 	ROOT 	Adj-demons S VPD .
+.7		ROOT	V-interr S-PP ?
+.7		ROOT	Pronoun-interr V-interr S-PP ?
+.7		ROOT	Pronoun-interr-subj	VP ?
+.7		ROOT	Pronoun-interr-subj V-interr S-PP Prep ?
+# The interrogatives get complicated. Have to do some dodgy stuff to
+# make the conjugation of tenses always work properly, and including cases
+# more complex than this would get extremely messy. These are basically
+# hard-coded sentence structures, and there are a LOT of options.
 
 # The basic grammar rules.	Here's what the abbreviations stand for:
 #		S	= sentence
@@ -40,7 +48,9 @@
 #		V-intrans = intransitive verb
 #		V-trans = transitive verb
 
+
 1		S				NP VP
+1		S-PP		NP VP-PP
 
 1		VP			V-trans NP
 1		VP 			V-intrans
@@ -51,6 +61,15 @@
 .8	VP			V-indirect PP
 .5	VP			VP PP
 .6 	VP 			V-demons Adj-demons S
+
+1		VP-PP		V-trans-PP NP
+1		VP-PP		V-trans-PP Conj V-trans-PP NP
+
+1		VP-PP 			V-intrans-PP
+1		VP-PP 			V-intrans-PP PP
+.8 	VP-PP 			V-intrans-PP Conj V-intrans-PP
+
+.6 	VP-PP 			Adv VP-PP
 
 1 	VPD 		V-demons-reverse NP
 
@@ -73,6 +92,7 @@
 .1	Prep		Prep-loc
 .1	Prep		Prep-indirect
 
+
 # Vocabulary.	Your program can see that "ate" is a terminal
 # symbol because there exists no rule for rewriting it.
 # Any symbol that can rewrite as a terminal (or a string of 
@@ -94,6 +114,17 @@
 1		V-intrans sighed
 
 1 	V-indirect	worked
+
+1		V-trans-pp		eat
+1		V-trans-pp		want
+
+1		V-intrans-pp	sigh
+1		V-intrans-pp	party
+1		V-intrans-pp	eat
+1		V-intrans-pp	sleep
+
+1		V-interr			did
+1		V-interr			will
 
 1 	V-demons 	thought
 
@@ -132,5 +163,11 @@
 1		Prep-loc	in
 
 1		Prep-indirect	on
+
+1		Pronoun-interr	where
+1		Pronoun-interr	when
+
+1		Pronoun-interr-subj	who
+1		Pronoun-interr-subj	what
 
 1 	Conj	and
